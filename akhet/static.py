@@ -7,7 +7,7 @@ def includeme(config):
     config.add_directive('add_static_route', add_static_route)
 
 def add_static_route(config, package, subdir, cache_max_age=3600,
-    **add_route_args):
+    permission=None, **add_route_args):
     """Add a route and view to serve static files from a directory.
 
     I create a catchall route that serves all URLs from a directory of static
@@ -52,7 +52,7 @@ def add_static_route(config, package, subdir, cache_max_age=3600,
     preds = [StaticViewPredicate(package, subdir)]
     preds.extend(custom_preds)
     config.add_route(name, pattern, custom_predicates=preds, **add_route_args)
-    config.add_view(view, route_name=name)
+    config.add_view(view, route_name=name, permission=permission)
 
 #### Private stuff
 
